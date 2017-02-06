@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/bootstrap-colorpicker.min.js"></script>
+  <script src="js/colorpicker-component.js"></script>
+
+  <script>
+  $(document).ready( function() {
+    $('.colorinput').colorpicker(
+      {
+        format: 'hex'
+      }
+    );
+    // Attach functions to events, for automatic changes
+    // Brand color
+    $('#brandcolor-option').on('changeColor',function() {
+      changeColor('brand',['background'],'brandcolor-option');});
+      $('#brandforegroundcolor-option').on('changeColor',function() {
+      changeColor('brand',['color'],'brandforegroundcolor-option');});
+
+    // Document viewer
+    $('#docbackground-option').on('changeColor',function() {
+      changeColor('document-viewer',['background'],'docbackground-option');});
+
+    // Navigation bar
+    $('#navigationbar-option').on('changeColor',function() {
+      changeColor('navigation',['background'],'navigationbar-option');
+      changeColor('button-solid',['color'],'navigationbar-option');
+    });
+    $('#navigationbarforeground-option').on('changeColor',function() {
+      changeColor('button-lined',['color','border-color'],'navigationbarforeground-option');
+      changeColor('button-solid', ['background', 'border-color'], 'navigationbarforeground-option');
+    });
+
+    // Sidebar/topbar
+    $('#sidebar-option').on('changeColor',function() {
+      changeColor('sidebar',['background'],'sidebar-option');
+    });
+    $('#sidebarforeground-option').on('changeColor',function() {
+      changeColor('sidebar',['color'],'sidebarforeground-option');
+    });
+  });
+ </script>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Edit Branding POC</h3>
+          </div>
+          <div class="panel-body">
+
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-md-4">
+
+                  <!-- Brand color -->
+                  <label for="brandcolor-option">Branding voorgrond kleur (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#ffffff" id="brandforegroundcolor-option" name="brandforegroundcolor-option" oninput="
+                    changeColor('brand',['color'],'brandforegroundcolor-option')">
+                  </div>
+
+                  <label for="brandcolor-option">Branding achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#3e899f" id="brandcolor-option" name="brandcolor-option" oninput="
+                    changeColor('brand',['background'],'brandcolor-option')">
+                  </div>
+
+                  <!-- Logo Image -->
+                  <label for="logoimg-option">Logo afbeelding (desktop):</label><br>
+                  <span class="btn btn-default btn-file">
+                    <input type="file" name="logoimg-option" id="logoimg-option" onchange="changeimg('logo','logoimg-option')">
+                  </span>
+                </div>
+
+                <div class="col-md-4">
+
+                  <!-- Sidebar/Topbar Color -->
+                  <label for="brandcolor-option">Indicator voorgrond kleur (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#6c6c6c" id="sidebarforeground-option" name="sidebarforeground-option" oninput="
+                    changeColor('sidebar, ['color'], 'sidebarforeground-option')">
+                  </div>
+
+                  <label for="brandcolor-option">Indicator achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#ffffff" id="sidebar-option" name="sidenbar-option" oninput="
+                    changeColor('sidebar',['background'],'sidebar-option')">
+                  </div>
+
+                  <!-- Icon Image -->
+                  <label for="iconimg-option">Icon afbeelding (mobiel):</label><br>
+                  <span class="btn btn-default btn-file">
+                    <input type="file" name="iconimg-option" id="iconimg-option" onchange="changeimg('icon','iconimg-option')">
+                  </span>
+                </div>
+
+                <div class="col-md-4">
+
+                  <!-- Navigationbar Color -->
+                  <label for="brandcolor-option">Navigatie voorgrond kleur (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#ffffff" id="navigationbarforeground-option" name="navigationbarforeground-option" oninput="
+                    changeColor('button-lined',['color','border-color'],'navigationbarforeground-option')
+                    changeColor('button-solid', ['background', 'border-color'], 'navigationbarforeground-option')">
+                  </div>
+
+                  <label for="brandcolor-option">Navigatie achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#6c6c6c" id="navigationbar-option" name="navigationbar-option" oninput="
+                    changeColor('navigation',['background'],'navigationbar-option')">
+                  </div>
+
+                  <!-- Document Viewer Color -->
+                  <label for="brandcolor-option">Content achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" placeholder="#f0f0f0" id="docbackground-option" name="docbackground-option" oninput="
+                    changeColor('document-viewer',['background'],'docbackground-option')
+                    changeColor('button-solid',['color'],'navigationbar-option')">
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <h2>Branding Preview</h2>
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#preview1">Desktop Preview</a></li>
+        <li><a data-toggle="tab" href="#preview2">Mobiel Preview</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="preview1" class="tab-pane fade in active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div>
+                <div class="row no-gutter panel-row" style="height: 700px;">
+                  <div class="col-xs-9 height-100 document-viewer" style="background: #f0f0f0;">
+                    <div class="sample-document">
+                      <h1>Sample Document</h1>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat urna metus, vitae dictum libero dictum nec. Aenean iaculis dolor in dapibus auctor. Nullam nibh ex, sagittis at neque et, volutpat maximus mi. Integer at auctor nisi. Vivamus vestibulum sem eleifend libero congue scelerisque. Phasellus feugiat vestibulum turpis sed ullamcorper. Maecenas aliquet magna nec urna suscipit rhoncus. Donec sit amet tellus eget ante imperdiet fringilla. Sed ultricies nibh vitae quam bibendum, maximus malesuada metus aliquam. Duis fringilla est eros, eleifend imperdiet tortor iaculis ultrices. Fusce cursus scelerisque felis ac venenatis. Mauris arcu mi, pellentesque eget commodo eget, faucibus nec ante. Cras nulla ante, aliquet vitae bibendum ac, commodo nec dolor.</p>
+                    </div>
+                    <nav class="navigation">
+                      <span class="back">
+                        <a class="button-lined">Terug</a>
+                      </span>
+                      <span class="next">
+                        <a class="button-lined">Niet akkoord</a>
+                        <a class="button-solid">Volgende</a>
+                      </span>
+                    </nav>
+                  </div>
+                  <div class="col-xs-3 height-100 sidebar">
+                    <div class="brand brand-desktop">
+                      <span class="helper"></span>
+                      <img src="img/branding/signhost-logo.png" class="logo" id="logo" alt="Signhost Logo">
+                    </div>
+                    <div class="controls">
+                      <div class="select-language"
+                      <a href="">Nederlands (Nederland)</a>
+                    </div>
+                    <ul class="indicator">
+                      <li class="current-step">Bekijken</li>
+                      <li>Ondertekenen</li>
+                      <li>Afronden</li>
+                    </ul>
+                  </div>
+                  <div class="about">
+                    <p><a href="#" target="_blank"><img src="img/branding/signhost-logo-small.png" alt="Signhost Logo"></a></p>
+                    <p><a href="#" target="_blank">Wat is een digitale handtekening?</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="preview2" class="tab-pane fade">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div>
+              <div class="row no-gutter panel-row" style="height: 700px; width: 500px; margin: auto;">
+                <div class="col-xs-12 height-100 document-viewer" style="background: #f0f0f0;">
+                  <div class="mobile-row sidebar">
+                    <div class="brand brand-mobile">
+                      <span class="helper"></span>
+                      <img src="img/branding/evidos-icon.png" class="icon" id="icon" alt="Signhost Icon">
+                    </div>
+                  </div>
+                  <div class="sample-document">
+                    <h1>Sample Document</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat urna metus, vitae dictum libero dictum nec. Aenean iaculis dolor in dapibus auctor. Nullam nibh ex, sagittis at neque et, volutpat maximus mi. Integer at auctor nisi. Vivamus vestibulum sem eleifend libero congue scelerisque. Phasellus feugiat vestibulum turpis sed ullamcorper. Maecenas aliquet magna nec urna suscipit rhoncus. Donec sit amet tellus eget ante imperdiet fringilla. Sed ultricies nibh vitae quam bibendum, maximus malesuada metus aliquam. Duis fringilla est eros, eleifend imperdiet tortor iaculis ultrices. Fusce cursus scelerisque felis ac venenatis. Mauris arcu mi, pellentesque eget commodo eget, faucibus nec ante. Cras nulla ante, aliquet vitae bibendum ac, commodo nec dolor.</p>
+                  </div>
+                  <nav class="navigation">
+                    <span class="back">
+                      <a class="button-lined">Niet akkoord</a>
+                    </span>
+                    <span class="next">
+                      <a class="button-solid">Volgende</a>
+                    </span>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <script src="js/branding.js"></script>
+</body>
+</html>
